@@ -36,9 +36,9 @@ public class Leitor {
         Path path = Paths.get(arquivo.getAbsolutePath());
         System.out.println(path);
         try (BufferedReader br = Files.newBufferedReader(path, Charset.defaultCharset())) {
-            String linha = null;
+            String linha = br.readLine();
             //caso primeira linha não for livro, lança exceção
-            String[] primeiraLinha = br.readLine().split("\\s+");
+            String[] primeiraLinha = linha.split("\\s+");
             if(!primeiraLinha[0].equals("L")){
                 throw new LeitorException("Primeira linha precisar ser o nome do livro!");
             } else {
