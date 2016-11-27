@@ -1,9 +1,13 @@
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class App {
 
     public static void main(String[] args) {
+        File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
+        new Leitor(arquivo);
+        System.exit(1);
         GeneralTreeOfObject arv = new GeneralTreeOfObject();
         arv.add(1, null);
         arv.add(2, 1);
