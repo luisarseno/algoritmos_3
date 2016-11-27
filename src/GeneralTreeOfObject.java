@@ -2,22 +2,22 @@
 
 import java.util.ArrayList;
 
-public class GeneralTreeOfInteger {
+public class GeneralTreeOfObject {
 
     // Classe interna Node
     private class Node {
 
         public Node father;
-        public Integer element;
+        public Object element;
         public ArrayList<Node> subtrees;
                 
-        public Node(Integer element) {
+        public Node(Object element) {
             father = null;
             this.element = element;
             subtrees = new ArrayList<>();
         }
         
-        public Node(Integer element, Node father) {
+        public Node(Object element, Node father) {
             this.father = father;
             this.element = element;
             subtrees = new ArrayList<>();
@@ -50,26 +50,26 @@ public class GeneralTreeOfInteger {
     private int count;
 
     // Metodos
-    public GeneralTreeOfInteger() {
+    public GeneralTreeOfObject() {
         root = null;
         count = 0;
     }
 
-    public Integer getRoot() {
+    public Object getRoot() {
         if (isEmpty()) {
             throw new EmptyTreeException();
         }
         return root.element;
     }
 
-    public void setRoot(Integer element) {
+    public void setRoot(Object element) {
         if (isEmpty()) {
             throw new EmptyTreeException();
         }
         root.element = element;
     }
 
-    public boolean isRoot(Integer element) {
+    public boolean isRoot(Object element) {
         if (root != null) {
             if (root.element.equals(element)) {
                 return true;
@@ -91,7 +91,7 @@ public class GeneralTreeOfInteger {
         count = 0;
     }
 
-    public Integer getFaher(Integer element) {
+    public Object getFaher(Object element) {
         Node n = searchNodeRef(element, root);
         if (n == null || n.father == null) {
             return null;
@@ -105,7 +105,7 @@ public class GeneralTreeOfInteger {
         return (nAux != null);
     }
 
-    private Node searchNodeRef(Integer element, Node target) {
+    private Node searchNodeRef(Object element, Node target) {
         Node res = null;
         if (target != null) {
             if (element.equals(target.element)) {
@@ -123,7 +123,7 @@ public class GeneralTreeOfInteger {
         return res;
     }
 
-    public boolean add(Integer element, Integer father) {
+    public boolean add(Object element, Object father) {
         Node n = new Node(element);
         Node nAux = null;
         boolean res = false;
@@ -146,13 +146,13 @@ public class GeneralTreeOfInteger {
     }
 
 
-    public ArrayList<Integer> positionsPre() {
-        ArrayList<Integer> lista = new ArrayList<>();
+    public ArrayList<Object> positionsPre() {
+        ArrayList<Object> lista = new ArrayList<>();
         positionsPreAux(root, lista);
         return lista;
     }
 
-    private void positionsPreAux(Node n, ArrayList<Integer> lista) {
+    private void positionsPreAux(Node n, ArrayList<Object> lista) {
         if (n != null) {
             lista.add(n.element);
             for (int i = 0; i < n.getSubtreesSize(); i++) {
@@ -161,8 +161,8 @@ public class GeneralTreeOfInteger {
         }
     }
     
-    public ArrayList<Integer> positionsWidth() {
-        ArrayList<Integer> lista = new ArrayList<>();
+    public ArrayList<Object> positionsWidth() {
+        ArrayList<Object> lista = new ArrayList<>();
 
         Queue<Node> fila = new Queue<>();
         Node atual;
