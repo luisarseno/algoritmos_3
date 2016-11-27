@@ -1,6 +1,7 @@
 //package Teste;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GeneralTreeOfObject {
 
@@ -82,7 +83,7 @@ public class GeneralTreeOfObject {
 //        String s = element.toString();
 //        for
 //                
-//    }
+//    } 
 
     public boolean isEmpty() {
         return (root == null);
@@ -165,6 +166,12 @@ public class GeneralTreeOfObject {
                 positionsPreAux(n.getSubtree(i), lista);
             }
         }
+    }
+    
+    public ArrayList<Object> preFix(){
+        ArrayList res = new ArrayList();
+        positionsPreAux(root, res);
+        return res;
     }
     
     public ArrayList<Object> positionsWidth() {

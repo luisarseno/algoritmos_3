@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public class App {
 
     public static void main(String[] args) {
-        File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
-        new Leitor(arquivo);
-        System.exit(1);
+//        File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
+//        new Leitor(arquivo);
+//        System.exit(1);
         GeneralTreeOfObject arv = new GeneralTreeOfObject();
         arv.add("Big Java", null);
         arv.add("Introdução", "Big Java");
@@ -25,9 +25,10 @@ public class App {
         //System.out.println(l);
         System.out.println("Tamanho: " + l.size() + "\n");
         
-        l.forEach((item) -> {
-            System.out.println(item);
-        });
+        System.out.println(arv.preFix());
+//        l.forEach((item) -> {
+//            System.out.println(item);
+//        });
         
     }
     
