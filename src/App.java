@@ -1,12 +1,17 @@
 
 import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class App {
 
     public static void main(String[] args) {
         File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
-        new Leitor(arquivo);
+        Leitor leitor =  new Leitor(arquivo);
+        GeneralTreeOfObject arvore = leitor.getArvore();
+        for(Object o : arvore.positionsPre()){
+            System.out.println(o);
+        }
         System.exit(1);
         GeneralTreeOfObject arv = new GeneralTreeOfObject();
         arv.add(1, null);
@@ -18,9 +23,9 @@ public class App {
         arv.add(8, 6); 
         arv.add(7, 3); 
         arv.add(5, 2); 
-        ArrayList<Object> l = arv.positionsWidth();
+        /*l = arv.positionsWidth();
         System.out.println(l);
-        System.out.println(l.size());
+        System.out.println(l.size());*/
         
     }
     
