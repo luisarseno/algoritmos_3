@@ -77,6 +77,12 @@ public class GeneralTreeOfObject {
         }
         return false;
     }
+    
+//    public static <E> String toStringPreOrder(Object element){
+//        String s = element.toString();
+//        for
+//                
+//    }
 
     public boolean isEmpty() {
         return (root == null);
