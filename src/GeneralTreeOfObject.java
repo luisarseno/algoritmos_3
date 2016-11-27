@@ -1,9 +1,13 @@
 //package Teste;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class GeneralTreeOfObject {
+
+    //para printar a arvore
+    private static final int CAPITULO = 1;
+    private static final int SESSAO = 1 ;
+
 
     // Classe interna Node
     private class Node {
@@ -167,6 +171,47 @@ public class GeneralTreeOfObject {
             }
         }
     }
+
+    private void printArvorePorNode() {
+        ArrayList<Node> capitulos = new ArrayList<>();
+        for(int i = 0; i < root.getSubtreesSize() ; i++){
+            capitulos.add(root.getSubtree(i));
+        }
+        ArrayList<Node> sessoes = new ArrayList<>();
+        System.out.println("-------------------------------------");
+        int countNumPagina = 0;
+        int capituloFor = 1;
+        for (Node capitulo : capitulos){
+            System.out.println((countNumPagina+1) +"\t"+ capituloFor+"."+ "\t" +capitulo.element);
+            for (int i = 0 ; i < capitulo.getSubtreesSize() ; i++){
+                if(countNumPagina == 15){
+                    System.out.println("-------------------------------------");
+                }
+                System.out.println((countNumPagina+1) +"\t"+ capituloFor+"."+(i+1)+ "\t" +capitulo.getSubtree(i).element);
+                countNumPagina++;
+            }
+            capituloFor++;
+        }
+
+    }
+
+    public void printArvoreAsLivro(){
+        //printa capa
+        if(root != null){
+            System.out.println("-------------------------------------");
+            for (int i = 0 ; i < 15 ; i++){
+                if(i == 6){
+                    System.out.println((i+1) + "\t\t\t" + root.element);
+                } else {
+                    System.out.println(i+1);
+                }
+            }
+            System.out.println("------------------------------------- Capa\n");
+        }
+        printArvorePorNode();
+        //começa a printar o livro
+
+    }
     
     public ArrayList<Object> preFix(){
         ArrayList res = new ArrayList();
@@ -191,6 +236,18 @@ public class GeneralTreeOfObject {
             }
         }
         return lista;
+    }
+
+    public int level (Object element) {
+        Node n = this.searchNodeRef(element, root);
+        if (n==null)
+            return -1;
+        int cont=0;
+        while (n!= root) {
+            cont++;
+            n = n.father;
+        }
+        return cont;
     }
 
 }

@@ -15,6 +15,9 @@ import java.util.Scanner;
 public class Leitor {
 
     private GeneralTreeOfObject arvore;
+    private String lastCapitulo;
+    private String lastSessao;
+
     private String lastElement;
     private Integer numParagrafo;
     private String nomeLivro;
@@ -42,8 +45,8 @@ public class Leitor {
             if(!primeiraLinha[0].equals("L")){
                 throw new LeitorException("Primeira linha precisar ser o nome do livro!");
             } else {
-                System.out.println("Nome do livro: "+retornaString(primeiraLinha));
-                setNomeLivro(retornaString(primeiraLinha));
+                System.out.println("Nome do livro: "+retornaString(primeiraLinha).trim());
+                setNomeLivro(retornaString(primeiraLinha).trim());
                 arvore.add(getNomeLivro(),null);
             }
             while ((linha = br.readLine()) != null) {
@@ -52,20 +55,22 @@ public class Leitor {
                     case "C":
                         //capitulo
                         System.out.println("Nome do Capítulo: "+retornaString(separadaPorEspaco));
-                        arvore.add(retornaString(separadaPorEspaco),getNomeLivro());
-                        setLastElement(retornaString(separadaPorEspaco));
+                        arvore.add(retornaString(separadaPorEspaco).trim(),getNomeLivro());
+                        setLastElement(retornaString(separadaPorEspaco).trim());
+                        setLastCapitulo(retornaString(separadaPorEspaco).trim());
                         break;
                     case "S":
                         //subtitulo
                         System.out.println("Nome do Sessão: "+retornaString(separadaPorEspaco));
-                        arvore.add(retornaString(separadaPorEspaco), getLastElement());
-                        setLastElement(retornaString(separadaPorEspaco));
+                        arvore.add(retornaString(separadaPorEspaco).trim(), getLastCapitulo());
+                        setLastSessao(retornaString(separadaPorEspaco).trim());
+                        setLastElement(retornaString(separadaPorEspaco).trim());
                         break;
                     case "SS":
                         //subsecao
                         System.out.println("Nome do Subsessão: "+retornaString(separadaPorEspaco));
-                        arvore.add(retornaString(separadaPorEspaco), getLastElement());
-                        setLastElement(retornaString(separadaPorEspaco));
+                        arvore.add(retornaString(separadaPorEspaco).trim(), getLastSessao());
+                        setLastElement(retornaString(separadaPorEspaco).trim());
                         break;
                     case "P":
                         System.out.println("Paragrafo: "+retornaString(separadaPorEspaco));
@@ -105,5 +110,21 @@ public class Leitor {
 
     public void setNomeLivro(String nomeLivro) {
         this.nomeLivro = nomeLivro;
+    }
+
+    public String getLastCapitulo() {
+        return lastCapitulo;
+    }
+
+    public void setLastCapitulo(String lastCapitulo) {
+        this.lastCapitulo = lastCapitulo;
+    }
+
+    public String getLastSessao() {
+        return lastSessao;
+    }
+
+    public void setLastSessao(String lastSessao) {
+        this.lastSessao = lastSessao;
     }
 }
