@@ -1,6 +1,5 @@
 
 import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class App {
@@ -14,19 +13,28 @@ public class App {
         }
         System.exit(1);
         GeneralTreeOfObject arv = new GeneralTreeOfObject();
-        arv.add(1, null);
-        arv.add(2, 1);
-        arv.add(3, 1);
-        arv.add(4, 2);
-        arv.add(6, 2);
-        arv.add(0, null);
-        arv.add(8, 6); 
-        arv.add(7, 3); 
-        arv.add(5, 2); 
-        /*l = arv.positionsWidth();
-        System.out.println(l);
-        System.out.println(l.size());*/
+        arv.add("Big Java", null);
+        arv.add("Introdução", "Big Java");
+        arv.add("Conceitos Básicos", "Introdução");
+        arv.add("Lorem Ipsum 1 - 3 linhas", "Conceitos Básicos");
+        arv.add("Lorem Ipsum 2 - 2 linhas", "Conceitos Básicos");
+        arv.add("Preparação do Ambiente", "Introdução");
+        arv.add("Lorem Ipsum 1 - 2 linhas", "Preparação do Ambiente");
+        arv.add("Requisitos Mínimos", "Preparação do Ambiente");
+        arv.add("Lorem Ipsum 1 - 9 linhas", "Requisitos Mínimos");
+        arv.add("Instação", "Preparação do Ambiente");
+        arv.add("Lorem Ipsum 1 - 2 linhas", "Instalação");
+        arv.add("Lorem Ipsum 2 - 4 linhas", "Instalação");
+        ArrayList<Object> l = arv.positionsWidth();
+        //System.out.println(l);
+        System.out.println("Tamanho: " + l.size() + "\n");
+
+        System.out.println(arv.preFix());
+//        l.forEach((item) -> {
+//            System.out.println(item);
+//        });
         
     }
+
     
 }
