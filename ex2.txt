@@ -1,0 +1,27 @@
+L Teste Algoritmo
+C Introducao
+S Primeira Seção
+P 1
+P 3
+S Segunda Seção
+P 3
+SS Primeira Subseção
+P 10
+SS Segunda Subseção
+P 1
+P 3
+S Terceira Seção
+P 1
+P 3
+C Segundo Capítulo
+S Seção do Segundo Capítulo
+P 2
+P 3
+SS Subseção do Segundo Capítulo
+P 2
+P 3
+C Terceiro Capítulo
+S Seção do Terceiro Capítulo
+P 3
+P 4
+P 5
