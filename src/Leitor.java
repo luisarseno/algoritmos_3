@@ -45,35 +45,31 @@ public class Leitor {
             if(!primeiraLinha[0].equals("L")){
                 throw new LeitorException("Primeira linha precisar ser o nome do livro!");
             } else {
-                System.out.println("Nome do livro: "+retornaString(primeiraLinha).trim());
                 setNomeLivro(retornaString(primeiraLinha).trim());
                 arvore.add(getNomeLivro(),null);
+                setLastElement(retornaString(primeiraLinha).trim());
             }
             while ((linha = br.readLine()) != null) {
                 String[] separadaPorEspaco = linha.split("\\s+");
                 switch (separadaPorEspaco[0]) {
                     case "C":
                         //capitulo
-                        System.out.println("Nome do Capítulo: "+retornaString(separadaPorEspaco));
                         arvore.add(retornaString(separadaPorEspaco).trim(),getNomeLivro());
                         setLastElement(retornaString(separadaPorEspaco).trim());
                         setLastCapitulo(retornaString(separadaPorEspaco).trim());
                         break;
                     case "S":
                         //subtitulo
-                        System.out.println("Nome do Sessão: "+retornaString(separadaPorEspaco));
                         arvore.add(retornaString(separadaPorEspaco).trim(), getLastCapitulo());
                         setLastSessao(retornaString(separadaPorEspaco).trim());
                         setLastElement(retornaString(separadaPorEspaco).trim());
                         break;
                     case "SS":
                         //subsecao
-                        System.out.println("Nome do Subsessão: "+retornaString(separadaPorEspaco));
                         arvore.add(retornaString(separadaPorEspaco).trim(), getLastSessao());
                         setLastElement(retornaString(separadaPorEspaco).trim());
                         break;
                     case "P":
-                        System.out.println("Paragrafo: "+retornaString(separadaPorEspaco));
                         numParagrafo = Integer.valueOf(retornaString(separadaPorEspaco).trim());
                         arvore.add(numParagrafo,getLastElement());
                         //paragrafo
@@ -81,7 +77,6 @@ public class Leitor {
                     default:
                         throw new LeitorException("Erro ao ler o arquivo");
                 }
-                System.out.println("\n=============\n");
             }
         } catch (IOException e) {
             System.err.format("Erro de E/S: %s%n", e);

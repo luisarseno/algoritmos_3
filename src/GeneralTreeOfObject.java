@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class GeneralTreeOfObject {
 
     //para printar a arvore
-    private static final int CAPITULO = 1;
-    private static final int SESSAO = 1 ;
+    private static int NUMERO_LINHAS = 1;
+    private static int NUMERO_PAGINAS = 1 ;
 
 
     // Classe interna Node
@@ -172,43 +172,97 @@ public class GeneralTreeOfObject {
         }
     }
 
-    private void printArvorePorNode() {
+    private String pritaArvore() {
+        String texto = "";
+        String sumario = "-------------------------------------\nSUMÁRIO\n";
         ArrayList<Node> capitulos = new ArrayList<>();
         for(int i = 0; i < root.getSubtreesSize() ; i++){
-            capitulos.add(root.getSubtree(i));
+            texto += "-------------------------------------\n";
+            if(root.getSubtree(i).element instanceof Integer){
+                for(int j = 0 ; j < (Integer) root.getSubtree(i).element ; j++){
+                    texto += (NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(j+1)+"\n";;
+                    NUMERO_LINHAS++;
+                    texto += this.quebraPagina();
+                }
+            } else {
+                capitulos.add(root.getSubtree(i));
+            }
         }
-        ArrayList<Node> sessoes = new ArrayList<>();
-        System.out.println("-------------------------------------");
-        int countNumPagina = 0;
         int capituloFor = 1;
         for (Node capitulo : capitulos){
-            System.out.println((countNumPagina+1) +"\t"+ capituloFor+"."+ "\t" +capitulo.element);
+            texto += (NUMERO_LINHAS) +"\t"+ capituloFor+"."+ "\t" +capitulo.element+"\n";;
+            sumario += capituloFor+"."+ "\t" +capitulo.element+"\t\t"+NUMERO_PAGINAS+"\n";;
+            NUMERO_LINHAS++;
+            texto += this.quebraPagina();
+            int numSessao  = 1;
             for (int i = 0 ; i < capitulo.getSubtreesSize() ; i++){
-                if(countNumPagina == 15){
-                    System.out.println("-------------------------------------");
-                }
-                System.out.println((countNumPagina+1) +"\t"+ capituloFor+"."+(i+1)+ "\t" +capitulo.getSubtree(i).element);
-                countNumPagina++;
-            }
+                //printa paragragos e as sessoes de cada capiutlo
+                if(capitulo.getSubtree(i).element instanceof Integer){
+                    for (int j = 0; j < (Integer) capitulo.getSubtree(i).element ; j++){
+                        texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(j+1)+"\n";;
+                        NUMERO_LINHAS++;
+                        texto += this.quebraPagina();
+                    }
+                } //fim if paragrafos do capitulo
+                else {
+                    Node nodeSessao = capitulo.getSubtree(i);
+                    texto +=(NUMERO_LINHAS) + "\t" + capituloFor + "." + (numSessao) + "\t" + nodeSessao.element+"\n";;
+                    sumario +="\t" + capituloFor + "." + (numSessao) + "\t" + nodeSessao.element+"\t\t"+NUMERO_PAGINAS+"\n";;
+                    NUMERO_LINHAS++;
+                    texto += this.quebraPagina();
+                    int numSubSessao = 1;
+                    //printa as subessoes de cada sessao e os paragrafos da sessao
+                    for(int j = 0 ; j < nodeSessao.getSubtreesSize() ;  j++){
+                        if(nodeSessao.getSubtree(j).element instanceof Integer){
+                            for (int k = 0; k < (Integer) nodeSessao.getSubtree(j).element ; k++){
+                                texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(k+1)+"\n";;
+                                NUMERO_LINHAS++;
+                                texto += this.quebraPagina();
+                            }
+                        }//fim if paragrafos da sessao
+                        else {
+                            Node nodeSubSessao = nodeSessao.getSubtree(j);
+                            texto +=(NUMERO_LINHAS) + "\t" + capituloFor + "." + (numSessao) + "." + numSubSessao +"\t" + nodeSubSessao.element+"\n";;
+                            sumario +="\t\t" + capituloFor + "." + (numSessao) + "." + numSubSessao +"\t" + nodeSubSessao.element+"\t\t"+NUMERO_PAGINAS+"\n";;
+                            NUMERO_LINHAS++;
+                            texto +=this.quebraPagina();
+                            //printa os paragrafos da subsessao
+                            for(int k = 0 ; k < nodeSubSessao.getSubtreesSize() ; k++){
+                                if(nodeSubSessao.getSubtree(k).element instanceof Integer){
+                                    for (int l = 0; l < (Integer) nodeSubSessao.getSubtree(k).element ; l++){
+                                        texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(l+1)+"\n";;
+                                        NUMERO_LINHAS++;
+                                        texto += this.quebraPagina();
+                                    }
+                                } // fim if paragrafos da subsessoes
+                            }
+                            numSubSessao++;
+                        } // fim else subsessoes
+                    } // fim for nas sessoes
+                    numSessao++;
+                } //fim else sessoes do capitulo
+            } // fim for no capitulo
             capituloFor++;
         }
-
+        return texto+sumario;
     }
 
-    public void printArvoreAsLivro(){
+    public String printArvoreAsLivro(){
         //printa capa
+        String texto = "";
         if(root != null){
-            System.out.println("-------------------------------------");
+            texto += "-------------------------------------\n";
             for (int i = 0 ; i < 15 ; i++){
                 if(i == 6){
-                    System.out.println((i+1) + "\t\t\t" + root.element);
+                    texto += (i+1) + "\t\t\t" + root.element+"\n";
                 } else {
-                    System.out.println(i+1);
+                    texto += (i+1)+"\n";
                 }
             }
-            System.out.println("------------------------------------- Capa\n");
+            texto += "------------------------------------- Capa\n";
         }
-        printArvorePorNode();
+        texto += pritaArvore();
+        return texto;
         //começa a printar o livro
 
     }
@@ -248,6 +302,16 @@ public class GeneralTreeOfObject {
             n = n.father;
         }
         return cont;
+    }
+
+    private String quebraPagina(){
+        String texto = "" ;
+        if(NUMERO_LINHAS == 16){
+            texto += "------------------------------------- \t\tPag."+NUMERO_PAGINAS+"\n";
+            NUMERO_LINHAS = 1;
+            NUMERO_PAGINAS++;
+        }
+        return texto;
     }
 
 }
