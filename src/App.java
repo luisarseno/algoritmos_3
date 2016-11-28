@@ -16,11 +16,19 @@ public class App {
         }
         String texto = "";
         File arquivo = new File("./" + args[0]);
-       // File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
+        //File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
         Leitor leitor = new Leitor(arquivo);
         GeneralTreeOfObject arvore = leitor.getArvore();
+        System.out.println("Carregando arquivo "+arquivo.getName()+" ... ok");
+        System.out.println("Gerando a árvore... ok");
         texto += arvore.printArvoreAsLivro();
-        //System.out.println(texto);
+        System.out.println("\tCapitulos:\t\t"+arvore.getNumCapitulos() +
+                "\n\tSeções:\t\t\t"+arvore.getNumSecoes()+
+                "\n\tSubseções:\t\t"+arvore.getNumSubsessoes()+
+                "\n\tParágrafos:\t\t"+arvore.getNumParagrafo());
+        System.out.println("Gerando sumario... ok\n");
+        System.out.println("Imprimindo o livro para o arquivo "+args[1]+"... ok.\n\n");
+        texto += arvore.printArvoreAsLivro();
         gravarArquivo(args[1], texto);
     }
 

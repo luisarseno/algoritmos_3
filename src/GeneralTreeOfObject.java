@@ -4,11 +4,6 @@ import java.util.ArrayList;
 
 public class GeneralTreeOfObject {
 
-    //para printar a arvore
-    private static int NUMERO_LINHAS = 1;
-    private static int NUMERO_PAGINAS = 1 ;
-
-
     // Classe interna Node
     private class Node {
 
@@ -53,11 +48,23 @@ public class GeneralTreeOfObject {
     // Atributos
     private Node root;
     private int count;
+    private int numCapitulos;
+    private int numSecoes;
+    private int numSubSecoes;
+    private int numParagrafo;
+    //para printar a arvore
+    private static int NUMERO_LINHAS = 1;
+    private static int NUMERO_PAGINAS = 1 ;
+
 
     // Metodos
     public GeneralTreeOfObject() {
         root = null;
         count = 0;
+        numCapitulos = 0;
+        numSecoes = 0;
+        numSubSecoes = 0;
+        numParagrafo =0 ;
     }
 
     public Object getRoot() {
@@ -172,77 +179,79 @@ public class GeneralTreeOfObject {
         }
     }
 
-    private String pritaArvore() {
+    private String printaArvore() {
         String texto = "";
         String sumario = "-------------------------------------\nSUMÁRIO\n";
         ArrayList<Node> capitulos = new ArrayList<>();
         for(int i = 0; i < root.getSubtreesSize() ; i++){
-            texto += "-------------------------------------\n";
             if(root.getSubtree(i).element instanceof Integer){
                 for(int j = 0 ; j < (Integer) root.getSubtree(i).element ; j++){
-                    texto += (NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(j+1)+"\n";;
+                    texto += (NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(j+1)+"\n";
+                    numParagrafo++;
                     NUMERO_LINHAS++;
-                    texto += this.quebraPagina();
+                    texto += this.quebraPagina(false);
                 }
             } else {
                 capitulos.add(root.getSubtree(i));
             }
         }
-        int capituloFor = 1;
         for (Node capitulo : capitulos){
-            texto += (NUMERO_LINHAS) +"\t"+ capituloFor+"."+ "\t" +capitulo.element+"\n";;
-            sumario += capituloFor+"."+ "\t" +capitulo.element+"\t\t"+NUMERO_PAGINAS+"\n";;
+            numCapitulos++;
+            if(NUMERO_LINHAS != 1){
+                texto += this.quebraPagina(true);
+            }
+            texto += (NUMERO_LINHAS) +"\t"+ numCapitulos+"."+ "\t" +capitulo.element+"\n";;
+            sumario += numCapitulos+"."+ "\t" +capitulo.element+"\t\t"+NUMERO_PAGINAS+"\n";;
             NUMERO_LINHAS++;
-            texto += this.quebraPagina();
-            int numSessao  = 1;
             for (int i = 0 ; i < capitulo.getSubtreesSize() ; i++){
+                numSecoes++;
                 //printa paragragos e as sessoes de cada capiutlo
                 if(capitulo.getSubtree(i).element instanceof Integer){
                     for (int j = 0; j < (Integer) capitulo.getSubtree(i).element ; j++){
-                        texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(j+1)+"\n";;
+                        texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(j+1)+"\n";
+                        numParagrafo++;
                         NUMERO_LINHAS++;
-                        texto += this.quebraPagina();
+                        texto += this.quebraPagina(false);
                     }
                 } //fim if paragrafos do capitulo
                 else {
                     Node nodeSessao = capitulo.getSubtree(i);
-                    texto +=(NUMERO_LINHAS) + "\t" + capituloFor + "." + (numSessao) + "\t" + nodeSessao.element+"\n";;
-                    sumario +="\t" + capituloFor + "." + (numSessao) + "\t" + nodeSessao.element+"\t\t"+NUMERO_PAGINAS+"\n";;
+                    texto +=(NUMERO_LINHAS) + "\t" + numCapitulos + "." + (numSecoes) + "\t" + nodeSessao.element+"\n";;
+                    sumario +="\t" + numCapitulos + "." + (numSecoes) + "\t" + nodeSessao.element+"\t\t"+NUMERO_PAGINAS+"\n";;
                     NUMERO_LINHAS++;
-                    texto += this.quebraPagina();
-                    int numSubSessao = 1;
+                    texto += this.quebraPagina(false);
                     //printa as subessoes de cada sessao e os paragrafos da sessao
                     for(int j = 0 ; j < nodeSessao.getSubtreesSize() ;  j++){
                         if(nodeSessao.getSubtree(j).element instanceof Integer){
                             for (int k = 0; k < (Integer) nodeSessao.getSubtree(j).element ; k++){
-                                texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(k+1)+"\n";;
+                                texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(k+1)+"\n";
+                                numParagrafo++;
                                 NUMERO_LINHAS++;
-                                texto += this.quebraPagina();
+                                texto += this.quebraPagina(false);
                             }
                         }//fim if paragrafos da sessao
                         else {
+                            numSubSecoes++;
                             Node nodeSubSessao = nodeSessao.getSubtree(j);
-                            texto +=(NUMERO_LINHAS) + "\t" + capituloFor + "." + (numSessao) + "." + numSubSessao +"\t" + nodeSubSessao.element+"\n";;
-                            sumario +="\t\t" + capituloFor + "." + (numSessao) + "." + numSubSessao +"\t" + nodeSubSessao.element+"\t\t"+NUMERO_PAGINAS+"\n";;
+                            texto +=(NUMERO_LINHAS) + "\t" + numCapitulos + "." + (numSecoes) + "." + numSubSecoes +"\t" + nodeSubSessao.element+"\n";;
+                            sumario +="\t\t" + numCapitulos + "." + (numSecoes) + "." + numSubSecoes +"\t" + nodeSubSessao.element+"\t\t"+NUMERO_PAGINAS+"\n";;
                             NUMERO_LINHAS++;
-                            texto +=this.quebraPagina();
+                            texto +=this.quebraPagina(false);
                             //printa os paragrafos da subsessao
                             for(int k = 0 ; k < nodeSubSessao.getSubtreesSize() ; k++){
                                 if(nodeSubSessao.getSubtree(k).element instanceof Integer){
                                     for (int l = 0; l < (Integer) nodeSubSessao.getSubtree(k).element ; l++){
-                                        texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(l+1)+"\n";;
+                                        texto +=(NUMERO_LINHAS) +"\t"+"Lorem Ipsum "+(l+1)+"\n";
+                                        numParagrafo++;
                                         NUMERO_LINHAS++;
-                                        texto += this.quebraPagina();
+                                        texto += this.quebraPagina(false);
                                     }
                                 } // fim if paragrafos da subsessoes
-                            }
-                            numSubSessao++;
+                            }//fim for paragrafos subsessoes
                         } // fim else subsessoes
                     } // fim for nas sessoes
-                    numSessao++;
                 } //fim else sessoes do capitulo
             } // fim for no capitulo
-            capituloFor++;
         }
         return texto+sumario;
     }
@@ -261,52 +270,20 @@ public class GeneralTreeOfObject {
             }
             texto += "------------------------------------- Capa\n";
         }
-        texto += pritaArvore();
+        texto += printaArvore();
         return texto;
         //começa a printar o livro
 
     }
-    
-    public ArrayList<Object> preFix(){
-        ArrayList res = new ArrayList();
-        positionsPreAux(root, res);
-        return res;
-    }
-    
-    public ArrayList<Object> positionsWidth() {
-        ArrayList<Object> lista = new ArrayList<>();
 
-        Queue<Node> fila = new Queue<>();
-        Node atual;
-
-        if (root != null) {
-            fila.enqueue(root);
-            while (!fila.isEmpty()) {
-                atual = fila.dequeue();
-                lista.add(atual.element);
-                for (int i = 0; i < atual.getSubtreesSize(); i++) {
-                    fila.enqueue(atual.getSubtree(i));
-                }
-            }
-        }
-        return lista;
-    }
-
-    public int level (Object element) {
-        Node n = this.searchNodeRef(element, root);
-        if (n==null)
-            return -1;
-        int cont=0;
-        while (n!= root) {
-            cont++;
-            n = n.father;
-        }
-        return cont;
-    }
-
-    private String quebraPagina(){
+    private String quebraPagina(Boolean force){
         String texto = "" ;
         if(NUMERO_LINHAS == 16){
+            texto += "------------------------------------- \t\tPag."+NUMERO_PAGINAS+"\n";
+            NUMERO_LINHAS = 1;
+            NUMERO_PAGINAS++;
+        }
+        if(force){
             texto += "------------------------------------- \t\tPag."+NUMERO_PAGINAS+"\n";
             NUMERO_LINHAS = 1;
             NUMERO_PAGINAS++;
@@ -314,4 +291,19 @@ public class GeneralTreeOfObject {
         return texto;
     }
 
+    public int getNumCapitulos() {
+        return numCapitulos;
+    }
+
+    public int getNumSecoes() {
+        return numSecoes;
+    }
+
+    public int getNumParagrafo() {
+        return numParagrafo;
+    }
+
+    public int getNumSubsessoes() {
+        return numSubSecoes;
+    }
 }
