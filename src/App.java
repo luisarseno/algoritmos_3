@@ -23,12 +23,11 @@ public class App {
         System.out.println("Gerando a árvore... ok");
         texto += arvore.printArvoreAsLivro();
         System.out.println("\tCapitulos:\t\t"+arvore.getNumCapitulos() +
-                "\n\tSeções:\t\t\t"+arvore.getNumSecoes()+
-                "\n\tSubseções:\t\t"+arvore.getNumSubsessoes()+
+                "\n\tSeçoes:\t\t\t"+arvore.getNumSecoes()+
+                "\n\tSubseçoes:\t\t"+arvore.getNumSubsessoes()+
                 "\n\tParágrafos:\t\t"+arvore.getNumParagrafo());
         System.out.println("Gerando sumario... ok\n");
         System.out.println("Imprimindo o livro para o arquivo "+args[1]+"... ok.\n\n");
-        texto += arvore.printArvoreAsLivro();
         gravarArquivo(args[1], texto);
     }
 
