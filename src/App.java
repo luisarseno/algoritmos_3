@@ -10,19 +10,18 @@ import java.nio.file.Paths;
 public class App {
 
     public static void main(String[] args) {
-        /*if (args.length != 2) {
+        if (args.length != 2) {
             System.out.println("Deve ser passado dois parametros");
             System.exit(1);
-        }*/
+        }
         String texto = "";
-        //File arquivo = new File("./" + args[0]);
-        File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
+        File arquivo = new File("./" + args[0]);
+       // File arquivo = new File("C:\\Users\\Santana\\Documents\\livro.txt");
         Leitor leitor = new Leitor(arquivo);
         GeneralTreeOfObject arvore = leitor.getArvore();
         texto += arvore.printArvoreAsLivro();
-        System.out.println(texto);
-        //gravarArquivo(args[1], texto);
-        System.exit(1);
+        //System.out.println(texto);
+        gravarArquivo(args[1], texto);
     }
 
     public static void gravarArquivo(String arquivo, String texto) {
